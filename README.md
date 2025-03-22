@@ -72,6 +72,9 @@ curl -X POST https://your-api-url/prod/items \
   -d '{"id": "1", "name": "Test Item", "description": "This is a test item"}'
 ```
 
+## Testing Pipeline
+Testing pipeline with updated IAM role configuration.
+
 ## Cleanup
 
 To remove all resources:
