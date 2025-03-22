@@ -16,7 +16,7 @@ export class PipelineStack extends cdk.Stack {
           'martinjohny167/mart5124-cicd-project',
           'main',
           {
-            connectionArn: 'arn:aws:codestar-connections:us-east-1:183494329089:connection/8acf5a29-62ab-4569-b206-bfc54c3a3ee2',
+            connectionArn: 'arn:aws:codeconnections:us-east-1:183494329089:connection/f702806d-b71c-46f0-b194-efb96cd23acd',
           }
         ),
         commands: [
