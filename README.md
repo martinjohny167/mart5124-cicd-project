@@ -5,7 +5,7 @@ This project implements a CI/CD pipeline using AWS CDK. It deploys a serverless 
 - API Gateway
 - Lambda function
 - DynamoDB table
-- CodePipeline with GitHub integration
+- CodePipeline with GitHub integration (using AWS CodeStar connection)
 
 ## Prerequisites
 
