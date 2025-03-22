@@ -1,17 +1,27 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as CicdProject from '../lib/cicd_project-stack';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { CicdStack } from '../lib/cicd-stack';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/cicd_project-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new CicdProject.CicdProjectStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+describe('CICD Stack', () => {
+  const app = new cdk.App();
+  const stack = new CicdStack(app, 'TestStack');
+  const template = Template.fromStack(stack);
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+  test('DynamoDB Table Created', () => {
+    template.hasResourceProperties('AWS::DynamoDB::Table', {
+      BillingMode: 'PAY_PER_REQUEST',
+    });
+  });
+
+  test('Lambda Function Created', () => {
+    template.hasResourceProperties('AWS::Lambda::Function', {
+      Runtime: 'nodejs18.x',
+    });
+  });
+
+  test('API Gateway Created', () => {
+    template.hasResourceProperties('AWS::ApiGateway::RestApi', {
+      Name: 'Items Service',
+    });
+  });
 });
