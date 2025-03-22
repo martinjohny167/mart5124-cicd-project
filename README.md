@@ -1,89 +1,82 @@
-# AWS CDK CI/CD Project
+# 🚀 AWS CDK + AWS CodePipeline (CI/CD Pipeline)
 
-This project implements a CI/CD pipeline using AWS CDK. It deploys a serverless application with the following components:
+## 📌 Overview
+This project demonstrates how to use AWS Cloud Development Kit (CDK) to create AWS resources programmatically and configure a CI/CD pipeline using AWS CodePipeline. The setup ensures continuous integration and deployment of AWS resources whenever changes are pushed to the GitHub repository.
 
-- API Gateway
-- Lambda function
-- DynamoDB table
-- CodePipeline with GitHub integration (using AWS CodeStar connection)
+## 🎯 Objectives
+- ✅ Deploy AWS resources using AWS CDK.
+- ✅ Automate deployment with AWS CodePipeline.
+- ✅ Ensure seamless CI/CD integration with GitHub.
 
-## Prerequisites
+## 🏗️ AWS Resources Created
+The following AWS resources are deployed using AWS CDK:
+- 🗄️ **Amazon S3 Bucket** – Stores static files or code artifacts.
+- ⚡ **AWS Lambda Function** – Executes code in response to events.
+- 📊 **Amazon DynamoDB Table** – Handles simple CRUD operations.
 
-- Node.js 18.x or later
-- AWS CLI configured with appropriate credentials
-- GitHub account with repository access
-- AWS CDK CLI installed (`npm install -g aws-cdk`)
-
-## Project Structure
-
+## 📂 Project Structure
 ```
-.
-├── bin/
-│   └── cicd_project.ts       # CDK app entry point
-├── lib/
-│   ├── pipeline-stack.ts     # CI/CD pipeline definition
-│   └── cicd-stack.ts         # Main infrastructure stack
-├── lambda/
-│   └── items.js             # Lambda function code
-├── test/
-│   └── cicd_project.test.ts # Infrastructure tests
-├── cdk.json                 # CDK configuration
-└── buildspec.yml           # AWS CodeBuild specification
+📦 my-cdk-project
+ ┣ 📂 bin
+ ┃ ┗ 📜 my-cdk-project.ts
+ ┣ 📂 lib
+ ┃ ┗ 📜 my-cdk-project-stack.ts
+ ┣ 📜 package.json
+ ┣ 📜 cdk.json
+ ┣ 📜 README.md
+ ┣ 📜 buildspec.yml
+ ┗ 📜 .gitignore
 ```
 
-## API Endpoints
+## 🛠️ Setup Instructions
+### 1️⃣ Prerequisites
+Ensure you have the following installed:
+- ✅ AWS CLI configured with credentials
+- ✅ AWS CDK installed (`npm install -g aws-cdk`)
+- ✅ Node.js installed
+- ✅ A GitHub repository for source control
 
-The API provides the following endpoints for managing items:
+### 2️⃣ Initialize and Deploy CDK Stack
+```sh
+# Clone the repository
+git clone https://github.com/your-repo.git
+cd my-cdk-project
 
-- `GET /items` - List all items
-- `POST /items` - Create a new item
-- `GET /items/{id}` - Get a specific item
-- `PUT /items/{id}` - Update an item
-- `DELETE /items/{id}` - Delete an item
+# Install dependencies
+npm install
 
-## Development
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Build the project:
-   ```bash
-   npm run build
-   ```
-
-3. Run tests:
-   ```bash
-   npm test
-   ```
-
-4. Deploy the pipeline:
-   ```bash
-   npx cdk deploy mart5124-pipeline-stack
-   ```
-
-## Testing the API
-
-Example item creation:
-```bash
-curl -X POST https://your-api-url/prod/items \
-  -H "Content-Type: application/json" \
-  -d '{"id": "1", "name": "Test Item", "description": "This is a test item"}'
+# Bootstrap and deploy
+cdk bootstrap
+cdk synth
+cdk deploy
 ```
 
-## Testing Pipeline
-Testing pipeline with updated IAM role configuration.
+### 3️⃣ Configure AWS CodePipeline
+- 🏗️ Create a new pipeline in AWS CodePipeline.
+- 🔗 Connect it to the GitHub repository.
+- ⚙️ Add build and deploy stages.
 
-## Cleanup
+### 4️⃣ Test the Pipeline
+1. Make changes to `my-cdk-project-stack.ts`.
+2. Push the changes to GitHub.
+3. Watch AWS CodePipeline trigger deployment.
 
-To remove all resources:
-```bash
-npx cdk destroy mart5124-pipeline-stack mart5124-cicd-stack
+## 📜 Buildspec Configuration
+```yaml
+version: 0.2
+phases:
+  install:
+    commands:
+      - npm install -g aws-cdk
+      - npm install
+  build:
+    commands:
+      - cdk synth
+      - cdk deploy --require-approval never
+artifacts:
+  files:
+    - '**/*'
 ```
 
-## Security
 
-- The pipeline uses AWS CodeStar connection for secure GitHub integration
-- Lambda function has minimal IAM permissions (only DynamoDB access)
-- API Gateway uses AWS IAM for request authorization
+-
